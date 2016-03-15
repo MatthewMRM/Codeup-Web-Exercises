@@ -1,0 +1,23 @@
+body{
+	background-image: url(/img/dark_wood.png);
+
+}
+#BA{
+	padding: 30px;	
+	border: 1px;
+	height: 250px;
+	width: 100%;
+	background-color: rgba(122, 224, 229, .7);
+	text-align: left;
+	font-size: 48px;
+	color: white;
+	font-family: "Fredericka the Great";
+}
+
+#NYC1{
+	color: white;
+	float: left;
+}
+img:hover{
+	opacity: .5;
+}
