@@ -1,0 +1,43 @@
+body{
+	background-image: url(/img/dark_wood.png);
+
+}
+#BA{
+	padding: 30px;	
+	border: 1px;
+	height: 250px;
+	width: 100%;
+	background-color: rgba(122, 224, 229, .7);
+	text-align: left;
+	font-size: 48px;
+	color: white;
+	font-family: "Fredericka the Great";
+}
+#NYC1{
+
+	float: left;
+	padding: 40px;
+
+
+
+}
+#NYC2{
+	float: right;
+	padding: 20px;
+
+}
+#NYC3{
+	float: left;
+	left: 200px;
+	padding: 40px;
+}
+#NYC4{
+	float: right;
+	left: 100px;
+	padding: 30px;
+}
+img:hover{
+	opacity: .5;
+	display: text;
+
+}
