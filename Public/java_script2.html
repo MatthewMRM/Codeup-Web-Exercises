@@ -1,0 +1,30 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<title>Top 10 Movies</title>
+</head>
+<body>
+	<script>
+		(function (){
+		"use strict"
+
+		var movies = ['God Father' , 'Breakfast Club' , 'Fight Club', 'American History X' , ' Star Wars' , 'The Wizard of OZ' , 'The Great Gatsby' , 'Cabaret' , 'Half Baked' , 'Friday'];
+
+		for (var i = 0; i < movies.length; i++) {
+			console.log('Movie ' + i + ' is: ' + movies[i]);
+			
+
+		if (i === 0) {
+			continue;
+		}
+		if (movies === movies[i]) {
+			console.log("This is my Favorite movie" + i);
+		}
+
+		
+	}
+
+		})();
+	</script>
+</body>
+</html>
