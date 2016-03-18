@@ -14,21 +14,38 @@
 			// Create an array of 4 names using literal array notation, in a variable called 'names'.
 			var names = ['Matt' , 'Bob' , 'Tom' , 'Fred'];
 
+			for (var i = 0; i < names.length; i++) {
+				console.log('The name at index ' + i + ' is: ' + names[i]);
+			}
+
 
 			// todo:
 			// Create a log statement that will log the number of elements in the names array.
 
-			console.log('There are ' + names.length + ' names in this array')
+			console.log('There are ' + names.length + ' names in this array ')
 
 			// todo:
 			// Create log statements that will print each of the names array elements individually.
-			console.log('The first name is:' + names[0]);
+			console.log('The first name is: ' + names[0]);
 
-			console.log('The second name is:' + names[1]);
+			console.log('The second name is: ' + names[1]);
 
-			console.log('The third name is:' + names[2]);
+			console.log('The third name is: ' + names[2]);
 
-			console.log('The fourth name is:' + names[3]);
+			console.log('The fourth name is: ' + names[3]);
+
+
+			
+			// loop through the array and log the values
+			names.forEach(function (element, index, array) {
+
+			    // element is the shape name
+			    // index is the iterator
+			    // array is the shapes array itself
+
+			    console.log('Names at index: ' + index + ' is: ' + element);
+			    
+			});
 
 		})();
 
