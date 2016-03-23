@@ -6,7 +6,12 @@
 </head>
 <body>
     <h1 id="mainHeader">Hello World!</h1>
+    <button id="btn1">Click Me!</button>
+
+
     <ul>
+    <button id="btn3">Click Me!</button>
+
         <li data-dbid="1">Item 1</li>
         <li data-dbid="2">Item 2</li>
         <li data-dbid="3">Item 3</li>
@@ -14,7 +19,9 @@
         <li data-dbid="5">Item 5</li>
     </ul>
     <h2 id="subHeader">Hello Again.</h2>
+    <button id="btn2">Click Me!</button>
     <p class="subParagraphs">
+    <button id="btn4">Click Me!</button>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
         ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -33,46 +40,75 @@
                 console.log(mainHeader);
 
             // TODO: Set inner html of mainHeader to "JavaScript is Cool"
+            
+        var listener = function (event) {
+            mainHeader.innerHTML = "JavaScript is Cool!";;
+        }
 
-            mainHeader.innerHTML = "JavaScript is Cool!";
+        // register the listener to handle clicks on btn 1
+        document.getElementById('btn1').addEventListener('click', listener, false);
 
-            // TODO: Uncomment the next line and get the sub header element by id
+
+        // TODO: Uncomment the next line and get the sub header element by id
             // var subHeader = ;
             var subHeader = document.getElementById('subHeader')
                 console.log(subHeader);
 
             // TODO: Set the text color of subHeader to blue
+
+        var listener = function (event) {
             subHeader.style.color = '#00F';
-            // TODO: Uncomment the next line and get all list items
-            // var listItems = ;
-            var listItems = document.getElementsByTagName('li');
-                
-               
+        }
 
-            // TODO: Set text color on every other list item to grey
+        // register the listener to handle clicks on btn 2
+        document.getElementById('btn2').addEventListener('click', listener, false);
+
+
+
+        var listItems = document.getElementsByTagName('li');
+
+
+         // TODO: Set text color on every other list item to grey
+            
+        // TODO: Set text color of li with dbid = 1 to blue
+
+        var listener = function (event) {
             for (var i = 0; i < listItems.length; i++){
-                if (i % 2 == 0){
-                    listItems[i].style.color = '#F00';
-                
-                }
-                
-
-            // TODO: Set text color of li with dbid = 1 to blue
-            var dbId = listItems[i].getAttribute("data-dbid");
-
+                var dbId = listItems[i].getAttribute("data-dbid");
                 if (dbId == 1){
                     listItems[i].style.color = '#00F';
                
                 }
+                 else if (i % 2 == 0){
+                    listItems[i].style.color = '#F00';
+                
+                }
+                if (dbId == 1){
+                    listItems[i].style.color = '#00F';
+               
+                }
+
             }
-            // TODO: Uncomment the next line and get all elements with class name sub-paragraph
+        }
+        // register the listener to handle clicks on btn 3
+        document.getElementById('btn3').addEventListener('click', listener, false);
+
+        // TODO: Uncomment the next line and get all elements with class name sub-paragraph
             // var subParagraphs = ;
             var subParagraphs = document.getElementsByClassName('subParagraphs');
                 console.log(subParagraphs);
             // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
-            for (var i = 0; i < subParagraphs.length; i++) {subParagraphs[i].innerHTML = "Mission Acomplished";
+
+        var listener = function (event) {
+           for (var i = 0; i < subParagraphs.length; i++) {subParagraphs[i].innerHTML = "Mission Acomplished";
 
             }
+        }
+        // register the listener to handle clicks on btn 4
+        document.getElementById('btn4').addEventListener('click', listener, false);
+
+        
+
         })();
     </script>
 </body>
