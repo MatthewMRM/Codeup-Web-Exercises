@@ -18,24 +18,24 @@
       <input type="text" id = "midInput" readonly >
       <input type="text" id = "rightOperand" readonly >
  
-      <button class="number"  data-value = "1">1</button>
-      <button class="number"  data-value = "2">2</button>
-      <button class="number"  data-value = "3">3</button>
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
       <button class="operators" id="op">+</button>
   
-      <button class="number" data-value = "4">4</button>
-      <button class="number" data-value = "5">5</button>
-      <button class="number" data-value = "6">6</button>
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
       <button class="operators" id="op">-</button>
       
-      <button class="number" data-value = "7">7</button>
-      <button class="number" data-value = "8">8</button>
-      <button class="number" data-value = "9">9</button>
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
       <button class="operators" id="op">*</button>
 
 
       <button id ="clearOp">CL</button>
-      <button class="number"  data-value = "0">0</button>
+      <button class="number">0</button>
       <button id ="opEquals">=</button>
       <button class="operators" id="op">/</button>
 
@@ -48,74 +48,74 @@
       (function (){
           "use strict"
 
-    var leftOperand = document.getElementById("leftOperand");
-    var rightOperand = document.getElementById("rightOperand");
-    var midInput = document.getElementById("midInput");
+      var leftOperand = document.getElementById("leftOperand");
+      var rightOperand = document.getElementById("rightOperand");
+      var midInput = document.getElementById("midInput");
 
-    var wasOperatorUsed = false;
-// putting number into boxes
-    var numberInput = function(event) {
+      var wasOperatorUsed = false;
+      // putting number into boxes
+      var numberInput = function(event) {
         var num = this.innerHTML;
-        // if operator has not been used, go to left box
+        // if operator has not been used, go to leftOp
         if (!wasOperatorUsed) {
             leftOperand.value += num;
         } else {
-        // if it has been used, go to right box
+        // if it's used, go to rightOp
             rightOperand.value += num;
         }
     }
 // getting each number value and adding click ability
-    var number = document.getElementsByClassName("number");
-    for (var i = 0; i < number.length; i++) { 
+      var number = document.getElementsByClassName("number");
+        for (var i = 0; i < number.length; i++) { 
         number[i].addEventListener("click", numberInput);
-    }
+      }
 // inputting operator into mid box with check for box switching
-var opInput = function(event) {
-    midInput.value = this.innerHTML
-    wasOperatorUsed = true;
-}
+      var opInput = function(event) {
+        midInput.value = this.innerHTML
+        wasOperatorUsed = true;
+      }
 // getting each operator value
-var operation = document.getElementsByClassName("operators");
-for (var i = 0; i < operation.length; i++) { 
-    operation[i].addEventListener("click", opInput);
-}
+      var operation = document.getElementsByClassName("operators");
+        for (var i = 0; i < operation.length; i++) { 
+        operation[i].addEventListener("click", opInput);
+      }
 // to do arithmetic, equals
-var equal = document.getElementById("opEquals");
-var opEqual = function(event) {
-    var leftNum = parseInt(leftOperand.value);
-    var rightNum = parseInt(rightOperand.value);
-    var solution;
-    var operation = midInput.value;
-    switch (operation) {
-        case "+":
-            solution = (leftNum + rightNum);
-            break;
-        case "-":
-            solution = (leftNum - rightNum);
-            break;
-        case "*":
-            solution = (leftNum * rightNum);
-            break;
-        case "/":
-            solution = (leftNum / rightNum);
-            break;
-    }
-    clearDisplay();
-    leftOperand.value = solution;
-}
+      var equal = document.getElementById("opEquals");
+      var opEqual = function(event) {
+          var leftNum = parseInt(leftOperand.value);
+          var rightNum = parseInt(rightOperand.value);
+          var solution;
+          var operation = midInput.value;
+          switch (operation) {
+              case "+":
+                  solution = (leftNum + rightNum);
+                  break;
+              case "-":
+                  solution = (leftNum - rightNum);
+                  break;
+              case "*":
+                  solution = (leftNum * rightNum);
+                  break;
+              case "/":
+                  solution = (leftNum / rightNum);
+                  break;
+          }
+          clearDisplay();
+          leftOperand.value = solution;
+      }
 // assigning click event to equals sign, needs to go after opEquals is defined
-equal.addEventListener("click", opEqual);
-// getting C value 
-var clear = document.getElementById("clearOp");
-// to actually clear display
-var clearDisplay = function(event) {
-    leftOperand.value = "";
-    rightOperand.value = "";
-    midInput.value = "";
-    wasOperatorUsed = false;
-}
-// assigns click event to C button, needs to go after clearDisplay is defined
-clear.addEventListener("click", clearDisplay);
+          equal.addEventListener("click", opEqual);
+          // getting Clear value 
+          var clear = document.getElementById("clearOp");
+          // to actually clear display
+      var clearDisplay = function(event) {
+              leftOperand.value = "";
+              rightOperand.value = "";
+              midInput.value = "";
+              wasOperatorUsed = false;
+          }
+          // assigns click event to Clear button, needs to go after clearDisplay is defined
+          clear.addEventListener("click", clearDisplay);
 })();
      </script>
 

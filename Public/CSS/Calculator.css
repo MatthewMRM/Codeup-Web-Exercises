@@ -5,11 +5,12 @@ body {
 
 button {
 	  width: 75px;
-	  height: 50px;
+	  height: 40px;
 	  float: left;
 	  font-size: 2em;
 	  color: #500000;
 	  margin-left: 18px;
+    margin-top: 20px;
 	  background-color: white;
 }
 
@@ -17,9 +18,9 @@ button {
   	margin-left: 10px;
   	margin-top: 20px;
   	width: 400px;
-  	height: 275px;
+  	height: 320px;
   	background-color: #500000;
-  	t
+  	
 
 }
 
@@ -28,10 +29,12 @@ input {
   	margin-bottom: 10px;
   	margin-left: 12px;
   	width: 105px;
-  	height: 22px;
-  	font-size: 15px;
+  	height: 30px;
+  	font-size: 25px;
   	color: #500000;
   	font-weight: bold;
+    background-color: #6AA35E;
+    border-color: #6AA35E;
 }
 
 h1 {
@@ -43,11 +46,21 @@ h1 {
 	font-size: 25px;
 	color: #500000;
 	font-weight: bold;
+  
+}
+#clearOp{
+  color: white;
+  background-color: gray;
 }
 
+#clearOp:hover{
+  color: #500000;
+  background-color: white;
+}
 button:hover{
 	color: white;
 	background-color: gray;
 }
+
 			
 		
