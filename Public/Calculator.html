@@ -33,11 +33,15 @@
       <button class="number">9</button>
       <button class="operators" id="op">*</button>
 
-
-      <button id ="clearOp">CL</button>
+      <button id ="opEquals">=</button> 
       <button class="number">0</button>
-      <button id ="opEquals">=</button>
+      <button class="int" id="btnDec">.</button>
       <button class="operators" id="op">/</button>
+
+      
+      <button id ="clearOp">CLEAR</button>
+      <button class="operators" id="btnPer">%</button>
+      
 
       
       
@@ -51,8 +55,12 @@
       var leftOperand = document.getElementById("leftOperand");
       var rightOperand = document.getElementById("rightOperand");
       var midInput = document.getElementById("midInput");
-
+      var btnPer = document.getElementById("btnPer");
+      var btnDec = document.getElementById("btnDec");
       var wasOperatorUsed = false;
+
+
+
       // putting number into boxes
       var numberInput = function(event) {
         var num = this.innerHTML;
@@ -64,16 +72,45 @@
             rightOperand.value += num;
         }
     }
+
 // getting each number value and adding click ability
       var number = document.getElementsByClassName("number");
         for (var i = 0; i < number.length; i++) { 
         number[i].addEventListener("click", numberInput);
       }
+
+      var btnDecListener = function() {
+      if (leftOperand.value.indexOf(".") == -1) {
+        leftOperand.value += ".";
+      } else if (!midInput.value) {
+
+      } else if (rightOperand.value.indexOf(".") == -1) {
+        rightOperand.value += ".";
+      }    
+    }
+      btnDec.addEventListener("click", btnDecListener);
+
+
 // inputting operator into mid box with check for box switching
       var opInput = function(event) {
         midInput.value = this.innerHTML
         wasOperatorUsed = true;
+
+      
+
       }
+    
+
+      var btnPerListener = function() {
+      if (!leftOperand.value) {
+        midInput.value = "";
+      } else {
+        midInput.value = "%";
+      }
+    
+}
+  btnPer.addEventListener("click", btnPerListener);
+
 // getting each operator value
       var operation = document.getElementsByClassName("operators");
         for (var i = 0; i < operation.length; i++) { 
@@ -99,9 +136,16 @@
               case "/":
                   solution = (leftNum / rightNum);
                   break;
+              case "%":
+                  solution = (leftNum / 100) * rightNum;
+                  break; 
+
           }
+
+
           clearDisplay();
           leftOperand.value = solution;
+
       }
 // assigning click event to equals sign, needs to go after opEquals is defined
           equal.addEventListener("click", opEqual);
@@ -116,6 +160,8 @@
           }
           // assigns click event to Clear button, needs to go after clearDisplay is defined
           clear.addEventListener("click", clearDisplay);
+
+         
 })();
      </script>
 
