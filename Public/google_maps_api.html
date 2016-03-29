@@ -59,17 +59,48 @@
 
 	  // Add the marker to our existing map
 		var marker = new google.maps.Marker({
+    		map: map,
+    		draggable: true,
+    		animation: google.maps.Animation.DROP,
     		position: sway,
-    		map: map
+
 	});
+		marker.addListener('click', toggleBounce);
+      
+      	function toggleBounce() {
+  		if (marker.getAnimation() !== null) {
+    	marker.setAnimation(null);
+  		} else {
+    	marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
+
+		var contentString = '<div id="content">' +
+		'<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Sway</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Sway</b>, is an award-winning modern Thai restaurant, named one of the ’50 Best New Restaurants in America’ by Bon Appétit Magazine.'+
+      ' They are known for their traditional pad thai dish. Which is acceptional!'+
+      '<br> Executive Chef: Martin Wilda</br>'+
+      ' Phone # 512.326.1999'+
+      '</p>'+
+      '<p>Attribution: Sway, <a href = "https://www.swayaustin.com/">'+
+      'https://www.swayaustin.com/</a>'+
+      '</div>'+
+      '</div>';
+		
 	 // Create a new infoWindow object with content
 		var infowindow = new google.maps.InfoWindow({
-    		content: "Delicious Modern Thai cooking "
+    		content: contentString
 	});
 
 	 // Open the window using our map and marker
-		infowindow.open(map, marker);
 
+		marker.addListener('click', function () {
+			infowindow.open(map,marker);
+		});
 
 
 
