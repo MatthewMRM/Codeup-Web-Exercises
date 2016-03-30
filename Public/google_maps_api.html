@@ -20,6 +20,26 @@
 		    <script type="text/javascript">
 		    (function() {
 		        "use strict";
+		        var locations = [
+            {
+                "name": "Sway",
+                "address": "1417 S 1st St, Austin, TX 78704",
+                "content": "<div>" + "<h2 class='text'>Sway</h2>" + "<p class='text'><p><b>Sway</b>, is an award-winning modern Thai restaurant, named one of the ’50 Best New Restaurants in America’ by Bon Appétit Magazine. They are known for their traditional pad thai dish. Which is acceptional!<br> Executive Chef: Martin Wilda</br>Phone # 512.326.1999</p>" + "</div>",
+                	"icon": "/img/rest_thai.png"
+            },
+            {
+                "name": "Home Slice",
+                "address": "1415 S Congress Ave Austin, TX 78704",
+                "content": "<div>" + "<h2 class='text'>Home Slice</h2>" + "<p class='text'>Best Pizza in Town!</p>" + "</div>",
+                "icon": "/img/pizza_1.png"
+            },
+            {
+                "name": "Gourdoughs Doughnuts",
+                "address": "1503 S 1st St Austin, TX 78704",
+                "content": "<div>" + "<h2 class='text'>Gourdoughs Doughnuts</h2>" + "<p class='text'>Nothing here is Healthy...</p>" + "</div>",
+                "icon": "/img/foodtruck_1.png"
+            }
+        ];
 
 		        // Set our map options
 		        var mapOptions = {
@@ -35,78 +55,53 @@
 
 		 // Render the map
 		    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		        var address = "1417 S 1st St, Austin, TX 78704";
+		        locations.forEach(function(restaurant, index){
+            var address = restaurant.address;
 
 		// Init geocoder object
-			var geocoder = new google.maps.Geocoder();
+			
 
 		// Geocode our address
-			geocoder.geocode({ "address": address }, function(results, status) {
+			var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({"address": address}, function(results, status){
 
 	   	// Check for a successful result
-	   			if (status == google.maps.GeocoderStatus.OK) {
-
-	    // Recenter the map over the address
-	       map.setCenter(results[0].geometry.location);
-	   			} else {
-
-	       // Show an error message with the status if our request fails
-	       alert("Geocoding was not successful - STATUS: " + status);
-	   }
-	   });
-	   	   // Create lat and long for our marker position
-			var sway = { lat: 30.250027, lng: -97.754496 };
-
-		  // Add the marker to our existing map
-		  	var image = "img/rest_thai.png"
-
-			var marker = new google.maps.Marker({
-	    		map: map,
-	    		icon: image,
-	    		draggable: true,
-	    		animation: google.maps.Animation.DROP,
-	    		position: sway,
+	   			if (status == google.maps.GeocoderStatus.OK){
+                    var image = restaurant.icon;
+                    var marker = new google.maps.Marker({
+                        // position: results[0].geometry.location,
+                        position: results[0].geometry.location,
+                        map: map,
+                        title: restaurant.name,
+                        animation: google.maps.Animation.DROP,
+                        icon: image,
 	    		
 
 		});
-			marker.addListener('click', toggleBounce);
-	      
-	      	function toggleBounce() {
-	  		if (marker.getAnimation() !== null) {
-	    	marker.setAnimation(null);
-	  		} else {
-	    	marker.setAnimation(google.maps.Animation.BOUNCE);
-	  }
-	}
-
-
-			var contentString = '<div id="content">' +
-			'<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading">Sway</h1>'+
-	      '<div id="bodyContent">'+
-	      '<p><b>Sway</b>, is an award-winning modern Thai restaurant, named one of the ’50 Best New Restaurants in America’ by Bon Appétit Magazine.'+
-	      ' They are known for their traditional pad thai dish. Which is acceptional!'+
-	      '<br> Executive Chef: Martin Wilda</br>'+
-	      ' Phone # 512.326.1999'+
-	      '</p>'+
-	      '<p>Attribution: Sway, <a href = "https://www.swayaustin.com/">'+
-	      'https://www.swayaustin.com/</a>'+
-	      '</div>'+
-	      '</div>';
-			
-		 // Create a new infoWindow object with content
-			var infowindow = new google.maps.InfoWindow({
-	    		content: contentString
-		});
-
-		 // Open the window using our map and marker
-
-			marker.addListener('click', function () {
-				infowindow.open(map,marker);
-			});
-
-		})();
+			marker.addListener("click", function() {
+                        var content = restaurant.content;
+                        var infowindow = new google.maps.InfoWindow({
+                            content: content
+                        });
+                        bounceMe(this);
+                        infowindow.open(map, marker);
+                    });
+                } else {
+                    // Show an error message with the status if our request fails
+                    alert("Geocoding was not successful - STATUS: " + status);
+                };       
+            });
+        });
+        function bounceMe(marker) {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+    })();
+    </script>
+<
 
 		</script>
 	</body>
