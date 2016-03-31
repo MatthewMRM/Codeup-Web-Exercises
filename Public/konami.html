@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Konami Code</title>
+</head>
+<body>
+    <h1>Konami Code</h1>
+    <p>Enter Konami Code to continue!</p>
+    
+    </form>
+    <script src="/js/jquery_1.js"></script>
+    <script>
+        "use strict";
+
+        
+         var konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13];
+        var index = 0;
+
+	        $(document).keyup(function(event){ 
+	        	var contraLives = event.keyCode;
+	        	
+	            console.log(contraLives);
+	        if (contraLives == konami[index]){
+	        	index++;
+	        } else {
+	        	index = 0;
+	        	console.log('You did not get the code correct. Only 3 lives for you!');
+	        }
+	        if (index == konami.length) {
+	        	index = 0;
+	        	alert('PowerUp! 30 lives added to your inventory!');
+	        };
+	 
+	        });
+	        
+	        
+    </script>
+    </body>
+    </html>
