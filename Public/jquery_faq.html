@@ -135,12 +135,12 @@
     	   		$(element).children("li").first().css('font-weight', 'bold');
     	   	});
     	   	$('li').click(function(index, element) {
-    	   		$('li').parent().fadeOut();
+    	   		$('li').parent().slideUp();
     	   	});	
 
     	   	
             $('dt').click(function() {
-                $('.dd').fadeToggle();
+                $('.dd').slideToggle();
            
             
         });
