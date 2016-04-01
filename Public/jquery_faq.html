@@ -9,7 +9,7 @@
         }
         dt{
         	font-weight: bold;
-        		
+
         }
     </style>
 	<title>10 FAQs about national parks.</title>
@@ -129,14 +129,21 @@
 	$(document).ready(function() {
             $('#hideme').click(function(event) {
                 event.preventDefault();
-                $('.dd').toggleClass('invisible');
+                $('.dd').toggle('invisible');
             });
            		$('ul').each(function(index, element) {
     	   		$(element).children("li").first().css('font-weight', 'bold');
     	   	});
     	   	$('li').click(function(index, element) {
-    	   		$('li').parent().addClass('invisible');
+    	   		$('li').parent().fadeOut();
     	   	});	
+
+    	   	
+            $('dt').click(function() {
+                $('.dd').fadeToggle();
+           
+            
+        });
     
 
         	});
