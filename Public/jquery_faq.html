@@ -12,39 +12,39 @@
 <body>
 
 <ul><h3>Yellowstone National Park</h3>
-
+<ul>
 <li>Grizzly Bears are great snuggle buddies.</li>
 <li>Buffalo's make good hamburgers.</li>
 <li>Old Faithful is reliable.</li>
 <li>In some areas it will smell like rotten eggs</li>
-
+</ul>
 </ul>
 
 <ul><h3>Yosemite National Park</h3>
-
+<ul>
 <li>Don't feed the bears unless it's something good.</li>
 <li>The trees are Gigantic.</li>
 <li>The waterfalls are dangerous.</li>
 <li>Again, Don't feed the bears...</li>
-
+</ul>
 </ul>
 
 <ul><h3>Grand Caynon</h3>
-
+<ul>
 <li>Don't fall over.</li>
 <li>Again, don't act a fool and fall over.</li>
 <li>If you fall over, you will most likely go home in a wooden box.</li>
 <li>Again, Don't fall over...</li>
-
+</ul>
 </ul>
 
 <ul><h3>Smoky Mountains</h3>
-
+<ul>
 <li>Don't get lost.</li>
 <li>Be safe around wild life.</li>
 <li>Don't act a fool on the roads going up the mountain.</li>
 <li>Watch out for Serial Killers...</li>
-
+</ul>
 </ul>
 
 
@@ -128,9 +128,13 @@
             });
            		$('ul').each(function(index, element) {
     	   		$(element).children("li").first().css('font-weight', 'bold');
+    	   	});
+    	   	$('li').click(function(index, element) {
+    	   		$('li').parent().addClass('invisible');
+    	   	});	
     
-});
-        });
+
+        	});
 </script>
 
 </body>
