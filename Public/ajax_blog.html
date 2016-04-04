@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Store</title>
+     <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+</head>
+<body>
+
+<h1>Matthew's Madness</h1>
+
+
+<table id="products">
+    <thead>
+        <div class="panel panel-default">
+        <div class="panel-heading">Current Store's Inventory</div>
+        <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Categories</th>
+        </tr>
+    </thead>
+    <tbody id="insertProducts"></tbody>
+</table>
+        </div>
+<button id="refresh">Refresh</button>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script>
+(function() {
+    "use strict"
+    var $btn = $("#refresh");
+    // TODO: Create an ajax GET request for /data/inventory.json
+    var getInfo = function() {
+    var $blog_info = $('#bloginfo');
+    // TODO: Take the data from inventory.json and append it to the products table
+    //       HINT: Your data should come back as a JSON object; use console.log() to inspect
+   $.post("/data/inventory.json").done(function(data){
+        $blog_info.html("");
+        for (var i = 0; i < data.length; i++) {
+            var $html = "<tr>"+
+                            "<th>"+ data[i].title + "</th>" +
+                            "<th>"+ data[i].quantity + "</th>"+
+                            "<th>"+ data[i].price + "</th>" +
+                            "<th>"+ data[i].categories.join(", ") + "</th>" +
+                        "</tr>";
+            $blog_info.append($html);
+            console.log("Data returned from server:")
+            console.log(data[i]);
+        }
+    })
+};
+   getInfo();
+    $btn.click(function(){
+        getInfo();
+        console.log("refreshed");
+    })
+
+
+    // TODO: Take the data from inventory.json and append it to the products table
+    //       HINT: Your data should come back as a JSON object; use console.log() to inspect
+    //             its contents and fields
+    //       HINT: You will want to target #insertProducts for your new HTML elements
+})();
+</script>
+
+</body>
+</html>
