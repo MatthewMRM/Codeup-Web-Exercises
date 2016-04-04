@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>Online Store</title>
+     <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
 </head>
 <body>
 
@@ -9,6 +13,9 @@
 
 <table id="products">
     <thead>
+        <div class="panel panel-default">
+        <div class="panel-heading">Current Store's Inventory</div>
+        <table class="table">
         <tr>
             <th>Title</th>
             <th>Quantity</th>
@@ -18,18 +25,24 @@
     </thead>
     <tbody id="insertProducts"></tbody>
 </table>
+        </div>
+<button id="refresh">Refresh</button>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
 <script>
 (function() {
     "use strict"
-    
+    var $btn = $("#refresh");
     // TODO: Create an ajax GET request for /data/inventory.json
+    var getInfo = function() {
     var $inventory_table = $('#insertProducts');
     // TODO: Take the data from inventory.json and append it to the products table
     //       HINT: Your data should come back as a JSON object; use console.log() to inspect
    $.ajax("/data/inventory.json").done(function(data){
+        $inventory_table.html("");
         for (var i = 0; i < data.length; i++) {
             var $html = "<tr>"+
                             "<th>"+ data[i].title + "</th>" +
@@ -41,7 +54,13 @@
             console.log("Data returned from server:")
             console.log(data[i]);
         }
-    });
+    })
+};
+   getInfo();
+    $btn.click(function(){
+        getInfo();
+        console.log("refreshed");
+    })
 
 
     // TODO: Take the data from inventory.json and append it to the products table
