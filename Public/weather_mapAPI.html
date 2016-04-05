@@ -1,102 +1,157 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Weather Map</title>
-
-    <style type="text/css">
-        
-        body {
-            background-image: url(/img/grey_wash_wall.png);
+	<title>Weather Map</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<style type="text/css">
+        .header{
+        	padding-top: 10px;
+        	padding-bottom: 10px;
+        	font-size: 2em; 
+        	font-weight: bold;
         }
         #map-canvas {
-            margin-left: 200px;
-            margin-top: 60px;
-            width: 900px;
-            height: 400px;
+        	float: left;
+			width: 770px;
+			height: 481px;
+			margin-left: auto;
+    		margin-right: auto
         }
-       
-        
+        #forecast {
+        	margin-left: 10px;
+        }
+        .city_name {
+        	padding-top: 20px;
+        	padding-bottom: 5px;
+        	font-weight: bold;
+        	font-size: 18px; 
+        	margin-left: 10px;
+        	font-size: 2em;
+        }
+        .day {
+        	float: left; 
+        	padding-left: 20px;
+        	padding-right: 20px;
+        	padding-top: 20px;
+        	text-align: center;
+        	border: solid 1px darkgrey;
+        	width: 200px;
+        	background: #dadbdc;
+        	margin-bottom: 10px;
+        }
+        .day p {
+        }
+        .bold{
+			font-weight: bold;
+			font-size: 1.3em;
+		}
+		.lat_long{
+			float: left;
+			margin-left: 10px;
+			height: 300px;
+			width: 300px;
+			position: relative;
+			background: #dadbdc;
+			padding: 10px;
+		}
     </style>
 </head>
 <body>
-
-    <!-- div to hold map -->
-        <div id="map-canvas"></div>
-        <div id="city_name" class="city_name"></div>
-        <div id="forecast"></div>
-
-<!-- Script to Load the Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVA8GE8m5qdHumyaoYLjRG1e0N_qIn3Co&libraries=places"></script>
-<script src="http://openlayers.org/api/OpenLayers.js"></script>
-<script src="http://openweathermap.org/js/OWM.OpenLayers.1.3.4.js"></script>
-<!-- jQUERY Script   -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="header col-md-12">Google Weather Maps</div>
+	</div>
+			<div id="map-canvas"></div>
+			
+	</div>
+	<div id="city_name" class="city_name"></div>
+	<div id="forecast"></div>
+	
+</div>
+<!-- Load the Google Maps API [DON'T FORGET TO USE A KEY] -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWs1sfMFNDNq25WBVzAKE0T3ARtpG0RA4"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
-(function() {
-"use strict";
-    // Set our map options
-        var mapOptions = {
-    // Set the zoom level
-            zoom: 17,
-    // This sets the center of the map at our location
-            center: {
-                lat :  29.4261991, 
-                lng : -98.4931823
-            }
-        };    
-    // Render the map
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-    // Adding trafficLayer
-        var trafficLayer = new google.maps.TrafficLayer();
-            trafficLayer.setMap(map);
-    // Place a draggable marker on the map
-        var marker = new google.maps.Marker({
-            position: {
-                lat :  29.4261991, 
-                lng : -98.4931823
-            },
-            map: map,
-            draggable:true,
-            title:"Drag me!"
-        }); 
+<script type="text/javascript">
+(function(){
+	"use strict";
+	// Set our map options
+	var mapOptions = {
+		// Set the zoom level
+		zoom: 10,
+		// This sets the center of the map at our location
+		center: {
+			lat:  29.426791,
+			lng: -98.489602
+		},
+		mapTypeControlOptions: {
+      		mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    	}
+	};
+	// Render the map
+	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+	
+	var latitude;
+	var longitude;
+	var weather = $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+    APPID: "0afb36934e424fd519919f61895dd1ef",
+    lat: 29.426791,
+    lon: -98.489602,
+    units: "imperial",
+    cnt: 3
+	});
+		weather.done (function(data){
+			console.log(data);
+			var box = $('#forecast');
+			var name_box = $('#city_name');
+			var name = data.city.name;
+			name_box.append(name);
+			var content = "";
+			var day = data.list;
+			day.forEach(function(day,index){
+				var content = "";
+				content += "<div class='day'><span class='bold'><p>" + day.temp.min + " / " +  day.temp.max + "</p></span>";
+				content += "<p><img src='http://openweathermap.org/img/w/"+ day.weather[0].icon +  ".png'></p>";
+				content += "<p class='data'>Humidity: " + day.humidity + "%</p>";
+				content += "<p class='data'>Wind: " + day.speed + "</p>";
+				content += "<p class='data'>Pressure: " + day.pressure + "</p></div>"
+				box.append(content);
+			})
+		});
     
-    // Weather API  
+	var coordinates = document.getElementById('coordinates');
+    coordinates.addEventListener('click', function(){ 
+        latitude = document.getElementById('latitude').value;
+        console.log(latitude);
+        longitude = document.getElementById('longitude').value;
+        console.log(longitude);
         var weather = $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
-            APPID: "0afb36934e424fd519919f61895dd1ef",
-            q:     "San Antonio, TX",
-            units: "imperial"
-        })
-
-        weather.done (function(data){
-        console.log(data);
-        
-        console.log(data.city.name);
-        var box = $('#forecast');
-        var name_box = $('#city_name');
-        var name = data.city.name;
-        name_box.append(name);
-        var content = "";
-        // for(var i=0; i < data.list.length; i++){
-        //  content += "<div class='day'><p>" + data.list[i].temp.min + " / " +  data.list[i].temp.max + "</p>";
-        //  content += "<p class='data'>" + data.list[i].weather.icon + "</p></div>";
-            
-        //  box.append(content);
-        // }
-        data.list.forEach(function(element,index){
-            var content = "";
-            content += "<div class='day'><span class='bold'><p>" + data.list[index].temp.min + " / " +  data.list[index].temp.max + "</p></span>";
-            content += "<p class='data'>" + data.list[index].weather.icon + "</p";
-            content += "<p class='data'>" + data.list[index].humidity + "</p>";
-            content += "<p class='data'>" + data.list[index].speed + "</p>";
-            content += "<p class='data'>" + data.list[index].pressure + "</p></div>"
-            box.append(content);
-        })
+	    APPID: "f97ab9e536a6a913b3a0d48dc0540193",
+	    lat: latitude,
+	    lon: longitude,
+	    units: "imperial",
+	    cnt: 3
+		});
+		weather.done (function(data){
+			console.log(data);
+			var box = $('#forecast');
+			var name_box = $('#city_name');
+			var name = data.city.name;
+			name_box.html(name);
+			var content = "";
+			var day = data.list;
+			day.forEach(function(day,index){
+				// var content = "";
+				content += "<div class='day'><span class='bold'><p>" + day.temp.min + " / " +  day.temp.max + "</p></span>";
+				content += "<p><img src='http://openweathermap.org/img/w/"+ day.weather[0].icon +  ".png'></p>";
+				content += "<p class='data'>Humidity: " + day.humidity + "%</p>";
+				content += "<p class='data'>Wind: " + day.speed + "</p>";
+				content += "<p class='data'>Pressure: " + day.pressure + "</p></div>"
+			})
+				box.html(content);
+		});
     });
-    
+	
 })();
-        
-
 </script>
 </body>
 </html>
