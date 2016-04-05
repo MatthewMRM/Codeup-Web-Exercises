@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Matthew's Maddness</title>
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+   <style>
+   body{
+    background-image: url(/img/grey_wash_wall.png);
+  } 
+   h1{
+    color: red;
+    font-weight: bold;
+    font-size: 50px;
+  }
+   span{
+    color: blue;
+    font-size: 22px;
+  }
+
+  .container{
+    color: white;
+    font-size: 25px
+  }
+ 
+   </style>
+    </head>
+  <body>
+        <header class="intro-header">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                  <h1>LiFe</h1>
+                    <hr class="small">
+                    <span class="subheading">A Blog About Things and Such</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div id="posts">
+              </div>
+            </div>
+          </div>
+        </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <script>
+      $(document).ready(function(){
+        "use strict"
+        var getPost = function() {
+          var $post = $("#posts");
+          var $blogRe = $.ajax("/data/blog.json");
+          $blogRe.done(function(data){
+            data.forEach(function(element, index, array) {
+          console.log(element);
+          var $html = '<div class="post-heading">'+
+            '<h2 class="post-title">'+element.title+'</h2>' +
+              '<p class="post-content">'+element.content+'</p>'+
+              '<p class="post-meta meta">Posted by Matthew Martinez on ' +element.date+ ' +' +element.categories.join(", +")+'</p>' +
+              '</div>' +
+            '<hr>';
+              $post.append($html);
+            })
+          })
+        };
+        getPost();
+        
+      });
+  </script>
+  </body>
+</html>
