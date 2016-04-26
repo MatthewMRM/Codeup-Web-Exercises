@@ -7,10 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Favorite Things</title>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-    <!-- My CSS Stylesheet -->
-    <link rel="stylesheet" href="/css/my-favorite-things.css">
+ 
 </head>
 <body>
     <div class="col s12 m4 l2"></div>
@@ -31,8 +28,6 @@
         </table>   
     </div>
     <div class="col s12 m4 l2"></div>
- 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>   
+    
 </body>
 </html>
