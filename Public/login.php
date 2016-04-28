@@ -1,32 +1,41 @@
 <?php
-function pageController()
-{
-  $login = 'LOGIN';
-  if(!empty($_POST)){
-    if($_POST['name'] == 'guest' && $_POST['password'] == 'password') {
-      header('Location: authorized.php');
-      die();
-    } else {
-      $login = "LOGIN FAILED";
+// start the session (or resume an existing one)
+// this function must be called before trying to get or set any session data!
+session_start();
+session_id();
+// var_dump($_SESSION);
+    if (isset($_SESSION['logged_in_user'])) {
+            header("location: authorized.php");
+            exit();
     }
-  }
-    return ['login' => $login];
-}
-extract(pageController());
+        // if POST is notEmpty than run if statement if empty dont run anything.
+    if (!empty($_POST)) {
+            // if post UN - bigred and post PW = tooLegitTwoQuit then relocate to new location
+        if ($_POST['username'] == 'guest' && $_POST['password'] == 'password') {
+                //will create a key in the super global variable SESSION called logged
+            $_SESSION['logged_in_user'] = $_POST['username'];
+                //new page being sent to if UN PW match POST
+            header("location: authorized.php");
+                // same as die() - ends the function
+            exit();
+        } else {
+                // if UN PW do not match above will display echo ' '
+            echo 'Login Failed!';
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login | PHP</title>
+    <title>LOGIN</title>
 </head>
 <body>
-<h1><?= $login; ?></h1>
-  <form method="POST" action="login.php">
-    <label>Name</label>
-    <input type="text" name="name"><br>
-    <label>Password</label>
-    <input type ="password" name="password"><br>
-    <input type ="submit">
-  </form>
+    <form method="POST">
+        <label>Username</label>
+        <input type="text" name="username"><br>
+        <label>Password</label>
+        <input type="text" name="password"><br>
+        <input type="submit">
+    </form>
 </body>
 </html>
