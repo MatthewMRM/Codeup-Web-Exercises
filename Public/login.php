@@ -1,41 +1,49 @@
 <?php
-// start the session (or resume an existing one)
-// this function must be called before trying to get or set any session data!
 session_start();
-session_id();
-// var_dump($_SESSION);
-    if (isset($_SESSION['logged_in_user'])) {
-            header("location: authorized.php");
-            exit();
+$error = '';
+if (isset($_SESSION['logged_in_user'])){
+    header('location: authorized.php');
+}
+if (!isset($_POST['username']) && !isset($_POST['password'])){
+    $username = '';
+    $password = '';
+} else {
+    if ($_POST['username'] == 'guest' && $_POST['password'] == 'password'){
+        header('location: authorized.php');
+        $logged_in_user = $_POST['username'];
+        $_SESSION['logged_in_user'] = $logged_in_user;
+        exit();
+    } else {
+        $error = 'login failed';
     }
-        // if POST is notEmpty than run if statement if empty dont run anything.
-    if (!empty($_POST)) {
-            // if post UN - bigred and post PW = tooLegitTwoQuit then relocate to new location
-        if ($_POST['username'] == 'guest' && $_POST['password'] == 'password') {
-                //will create a key in the super global variable SESSION called logged
-            $_SESSION['logged_in_user'] = $_POST['username'];
-                //new page being sent to if UN PW match POST
-            header("location: authorized.php");
-                // same as die() - ends the function
-            exit();
-        } else {
-                // if UN PW do not match above will display echo ' '
-            echo 'Login Failed!';
-        }
-    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LOGIN</title>
+    <title>Login</title>
 </head>
 <body>
-    <form method="POST">
-        <label>Username</label>
-        <input type="text" name="username"><br>
-        <label>Password</label>
-        <input type="text" name="password"><br>
-        <input type="submit">
-    </form>
+
+<form method="POST">
+
+    <label>Username</label>
+
+    <div><input type="text" name="username"></div>
+
+    <label>Password</label>
+
+    <div><input type="password" name="password"></div> <br>
+
+    <div><font color="red"><?= $error ?></font><div>
+
+    <input type="submit"> 
+
+</form>
+
+<a href="logout.php"> LOGOUT </a>
+
 </body>
+
 </html>
