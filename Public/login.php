@@ -1,13 +1,15 @@
 <?php
 // require once for EVERYTHING, no commas;
 require_once 'functions.php';
+require_once 'Auth.php';
+require_once 'Input.php';
 
     // starts session or finds a session
     // allows us to use $_SESSION superglobal
     session_start();
     var_dump($_SESSION);
     // variables for login check
-    $username = "guest";
+    $username = "Bearlion";
     $password = "password";
     $message = "";
     // checking $_POST superglobal for user input to check for login
