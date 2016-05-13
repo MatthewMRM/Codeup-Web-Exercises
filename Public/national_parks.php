@@ -6,9 +6,9 @@
 // Modify your page to add links to go to the next or previous page(s).
 // Add some logic to determine whether or not to show the next and/or previous page links.
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'parks_db');
-define('DB_USER', 'parks_user');
-define('DB_PASS', 'Panther6612$');
+define('DB_NAME', 'parks_db.');
+define('DB_USER', 'vagrant');
+define('DB_PASS', 'vagrant');
 require_once '../db_connect.php';
 $stmt=$dbc->query('SELECT * FROM national_parks');
 $parks = $stmt->fetchAll(PDO::FETCH_ASSOC);
