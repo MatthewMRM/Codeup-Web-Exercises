@@ -8,7 +8,7 @@
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'parks_db.');
 define('DB_USER', 'parks_user');
-define('DB_PASS', 'Panther66');
+define('DB_PASS', 'vagrant');
 require_once '../db_connect.php';
 $stmt=$dbc->query('SELECT * FROM national_parks');
 $parks = $stmt->fetchAll(PDO::FETCH_ASSOC);
