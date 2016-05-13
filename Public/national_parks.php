@@ -16,3 +16,13 @@ require_once '../db_connect.php';
 // input is how we get our page numbers
 require_once '../Input.php';
 // this will give me OFFSET
+
+$limit = 4;
+$page = Input::get('page',1);
+$offset = ($page * $limit) - $limit;
+// inside of this string is only SQL
+// double quotes b/c it is dynamic!!!
+$stmt=$dbc->query("SELECT * FROM national_parks LIMIT $limit OFFSET $offset");
+$parks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// var_dump($parks);
+?>
