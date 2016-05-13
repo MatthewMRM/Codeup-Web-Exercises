@@ -7,8 +7,8 @@
 // Add some logic to determine whether or not to show the next and/or previous page links.
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'parks_db.');
-define('DB_USER', 'vagrant');
-define('DB_PASS', 'vagrant');
+define('DB_USER', 'codeup');
+define('DB_PASS', 'Panther6612$');
 require_once '../db_connect.php';
 $stmt=$dbc->query('SELECT * FROM national_parks');
 $parks = $stmt->fetchAll(PDO::FETCH_ASSOC);
