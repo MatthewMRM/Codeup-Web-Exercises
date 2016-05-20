@@ -1,4 +1,3 @@
-
 <?php
 REQUIRE '../db_connect.php';
 REQUIRE '../library/Input.php';
@@ -8,29 +7,29 @@ function pageController($dbc) {
     try {
         $name = Input::has('name') ? Input::getString('name') : ' ';
     } catch (Exception $e1) {
-        $error[] = $e1->getMessage();
+        $errors[] = $e1->getMessage();
     }
     try {
         $location = Input::has('location') ? Input::getString('location') : ' ';
     } catch (Exception $e2) {
-        $error[] = $e2->getMessage();
+        $errors[] = $e2->getMessage();
     }
     try {
         $date_established = Input::has('date_established') ? Input::getString('date_established') : ' ';
     } catch (Exception $e3) {
-        $error[] = $e3->getMessage();
+        $errors[] = $e3->getMessage();
     }
     try {
         $area_in_acres = Input::has('area_in_acres') ? Input::getNumber('area_in_acres') : ' ';
     } catch (Exception $e4) {
-        $error[] = $e4->getMessage();
+        $errors[] = $e4->getMessage();
     }
     try {
         $description = Input::has('description') ? Input::getString('description') : ' ';
     } catch (Exception $e5) {
-        $error[] = $e5->getMessage();
+        $errors[] = $e5->getMessage();
     }
-    if(!empty($_POST)) {
+    if(!empty($_POST) && empty($errors)) {
         $stmt = $dbc->prepare('INSERT INTO national_parks (name, location, date_established, area_in_acres, description) 
                         VALUES (:name, :location, :date_established, :area_in_acres, :description)');
             $stmt->bindValue(':name', $name, PDO::PARAM_STR);
@@ -41,6 +40,7 @@ function pageController($dbc) {
             $stmt->execute();
     }
     $data = [];
+    $data['errors'] = $errors;
     $stmt = $dbc->prepare('SELECT COUNT(*) FROM national_parks');
     $stmt->execute();
     $count = $stmt->fetchColumn();
