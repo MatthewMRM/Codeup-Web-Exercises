@@ -1,13 +1,35 @@
+
 <?php
 REQUIRE '../db_connect.php';
 REQUIRE '../library/Input.php';
 REQUIRE_ONCE '../library/functions.php';
 function pageController($dbc) {
-    $name = Input::has('name') ? Input::getString('name') : ' ';
-    $location = Input::has('location') ? Input::getString('location') : ' ';
-    $date_established = Input::has('date_established') ? Input::getString('date_established') : ' ';
-    $area_in_acres = Input::has('area_in_acres') ? Input::getNumber('area_in_acres') : ' ';
-    $description = Input::has('description') ? Input::getString('description') : ' ';
+    $errors = [];
+    try {
+        $name = Input::has('name') ? Input::getString('name') : ' ';
+    } catch (Exception $e1) {
+        $error[] = $e1->getMessage();
+    }
+    try {
+        $location = Input::has('location') ? Input::getString('location') : ' ';
+    } catch (Exception $e2) {
+        $error[] = $e2->getMessage();
+    }
+    try {
+        $date_established = Input::has('date_established') ? Input::getString('date_established') : ' ';
+    } catch (Exception $e3) {
+        $error[] = $e3->getMessage();
+    }
+    try {
+        $area_in_acres = Input::has('area_in_acres') ? Input::getNumber('area_in_acres') : ' ';
+    } catch (Exception $e4) {
+        $error[] = $e4->getMessage();
+    }
+    try {
+        $description = Input::has('description') ? Input::getString('description') : ' ';
+    } catch (Exception $e5) {
+        $error[] = $e5->getMessage();
+    }
     if(!empty($_POST)) {
         $stmt = $dbc->prepare('INSERT INTO national_parks (name, location, date_established, area_in_acres, description) 
                         VALUES (:name, :location, :date_established, :area_in_acres, :description)');
@@ -129,4 +151,3 @@ function pageController($dbc) {
 </footer>
 </body>
 </html>
-
